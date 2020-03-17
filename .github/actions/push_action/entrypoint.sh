@@ -11,7 +11,7 @@ push() {
     cd texlivefiles
     git init
     git config user.email "tex4gm@gmail.com"
-    git config user.name "tex4gmail"
+    git config user.name "${ACTOR}"
     git config http.sslVerify false
     mv /app/texlive .
     git add .
