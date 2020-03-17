@@ -1,0 +1,27 @@
+name: "Push to TeX-Live-Files"
+description: "Push to TeX-Live-Files"
+inputs:
+  push: # id of input
+    description: "Push command"
+    required: true
+    default: ""
+  actor:
+    description: "The person initiating the workflow"
+    required: true
+    default: "dummy"
+  token:
+    description: "Secret token for pushing"
+    required: true
+    default: "dummy"
+  version:
+    description: "Version"
+    required: true
+    default: "dummy"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.push }}
+    - ${{ inputs.actor }}
+    - ${{ inputs.token }}
+    - ${{ inputs.version }}
