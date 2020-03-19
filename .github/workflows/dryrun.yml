@@ -1,0 +1,17 @@
+name: Dry Run
+
+on:
+  push:
+    tags-ignore:
+      - "*"
+
+jobs:
+  push_job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: ./.github/actions/push_action
+        with:
+          push: "no_push"
+          version: "DryRun"
