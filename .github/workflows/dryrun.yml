@@ -2,6 +2,8 @@ name: Dry Run
 
 on:
   push:
+    branches:
+      - "*"
     tags-ignore:
       - "*"
 
