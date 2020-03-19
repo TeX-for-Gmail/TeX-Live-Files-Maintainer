@@ -2,13 +2,14 @@
 set -x
 
 initialize() {
-    VERSION=$1
+    ACTOR=$1
+    VERSION=$2
     cd ~
     mkdir texlivefiles
     cd texlivefiles
     git init
-    git config user.email "tex4gm@gmail.com"
     git config user.name "${ACTOR}"
+    git config user.email "tex4gm@gmail.com"
     git config http.sslVerify false
     mv /app/texlive .
     git add .
@@ -25,7 +26,7 @@ push() {
     git push origin $VERSION
 }
 
-initialize $4
+initialize $2 $4
 
 if [ "$1" = "push" ]; then
     push $2 $3 $4
