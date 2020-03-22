@@ -4,24 +4,29 @@ set -x
 initialize() {
     ACTOR=$1
     VERSION=$2
-    cd ~
-    mkdir texlivefiles
-    cd texlivefiles
+    REPO_HOME=~/texlivefiles
+
+    mkdir $REPO_HOME
+    cd $REPO_HOME
     # Set up git
     git init
     git config user.name "${ACTOR}"
     git config user.email "tex4gm@gmail.com"
     git config http.sslVerify false
 
-    # Move texlive installation to ~/texlivefiles
+    # Move texlive installation to $REPO_HOME
     mv /app/texlive .
 
+    # Make sure that pdftex.map is not a symlink
+    rm -f $REPO_HOME/texlive/texmf-var/fonts/map/pdftex/updmap/pdftex.map
+    cp $REPO_HOME/texlive/texmf-var/fonts/map/pdftex/updmap/pdftex_dl14.map $REPO_HOME/texlive/texmf-var/fonts/map/pdftex/updmap/pdftex.map
+
     # Create index
-    cd texlive
-    node /make_http_index.js > ../index.json
+    cd $REPO_HOME/texlive
+    node /make_http_index.js > $REPO_HOME/index.json
 
     # Commit
-    cd ..
+    cd $REPO_HOME
     git add .
     git commit -m "$VERSION"
     git tag -a $VERSION -m "$VERSION"
