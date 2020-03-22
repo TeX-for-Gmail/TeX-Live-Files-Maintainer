@@ -7,11 +7,21 @@ initialize() {
     cd ~
     mkdir texlivefiles
     cd texlivefiles
+    # Set up git
     git init
     git config user.name "${ACTOR}"
     git config user.email "tex4gm@gmail.com"
     git config http.sslVerify false
+
+    # Move texlive installation to ~/texlivefiles
     mv /app/texlive .
+
+    # Create index
+    cd texlive
+    node /make_http_index.js > ../index.json
+
+    # Commit
+    cd ..
     git add .
     git commit -m "$VERSION"
     git tag -a $VERSION -m "$VERSION"
