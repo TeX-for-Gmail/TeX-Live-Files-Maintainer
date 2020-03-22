@@ -2,6 +2,8 @@ FROM ubuntu:latest
 
 COPY entrypoint.sh /entrypoint.sh
 
+COPY make_http_index.js /make_http_index.js
+
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -14,7 +16,8 @@ RUN apt-get update && \
         python2.7 \
         wget \
         p7zip-full p7zip-rar \
-        && rm -rf /var/lib/apt/lists/*
+        nodejs npm && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR app
 
